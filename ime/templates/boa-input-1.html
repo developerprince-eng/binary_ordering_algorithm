@@ -31,15 +31,16 @@
                     <div class="col-xl-12">
                         <div class="col-md-12">
                             <h3> Input and Compute 2</h3>
-                            <h4> Number of Parts <input required="required" type="number" min="0" max="999" id="" value="{{ parts }}" name="parts"></h4>
-                            <h4> Number of Machines<input required="required" type="number" min="0" max="999" id="" value="{{ machines }}" name="machines"></h4>
+                            <h4> Number of Parts <input required="required" type="number" min="0" max="999" id="" value="{{ parts }}" name="parts" style="border-radius: 25px; text-align:center;"></h4>
+                            <h4> Number of Machines<input required="required" type="number" min="0" max="999" id="" value="{{ machines }}" name="machines" style="border-radius: 25px; text-align:center;"></h4>
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                   <tr>
                                     <th scope="col">Machine </th>
                                     {% set i = 0 %}
                                     {% set j = 0 %}
-                                    {% set prts = range(parts)%}
+                                    {% set parts_int = (parts | int)%}
+                                    {% set prts = range(parts_int)%}
                                     {% for i in prts %}
                                       <th scope="col">Part {{ i + 1 }}</th>
                                       {%set i = i + 1%}

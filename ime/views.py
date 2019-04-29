@@ -51,8 +51,10 @@ def index():
     return render_template("index.html")
 
 #INPUT MACHINE AND PART NUMBER FORM
-@app.route("/boa/input1")
+@app.route("/boa/input1", methods=['GET', 'POST'])
 def boaInput():
+    if request.method == 'POST':
+        return render_template("boa-input.html", machines="0", parts="0")
     return render_template("boa-input.html", machines="0", parts="0")
 
 #INPUT PARTS PRODUCED BY EACH MACHINE
@@ -62,7 +64,7 @@ def boaInput2():
         machines_number = int(request.form['machines'])
         parts_number = int(request.form['parts'])
         return render_template("boa-input-1.html", machines=machines_number, parts=parts_number)
-    return render_template("boa-input-1.html")
+    return render_template("boa-input-1.html", machines=0, parts=0)
 
 #VIEW THE OUT CELLS FORMATION BY BOA  
 @app.route("/boa/input3", methods=['GET', 'POST'])
@@ -98,8 +100,6 @@ def boaInput3():
                 break
             else:
                 buffer_matrix=outputMatrix
-
-        
         print(outputMatrix)
         return render_template("boa-output.html", machines=machines_number, parts=parts_number)
     return render_template("boa-output.html")
