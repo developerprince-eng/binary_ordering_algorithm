@@ -3,7 +3,11 @@ import numpy as np
 class BOA:
     def __init__(self):
         self.is_obj = True
-        
+    
+    def convert_to_arry(self, listInput):
+        arrayOutput = np.asarray(listInput, dtype=np.int32)
+        return arrayOutput
+
     def order(self, matrix):
         row = matrix.shape[0]
         col = matrix.shape[1]

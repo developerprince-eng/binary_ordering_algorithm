@@ -51,25 +51,56 @@ def index():
     return render_template("index.html")
 
 #INPUT MACHINE AND PART NUMBER FORM
-@app.route("/boa/input1", methods=['GET', 'POST'])
+@app.route("/boa/input1")
 def boaInput():
-    if request.method == 'POST':
-        machines = request.form['machines']
-        parts = request.form['parts']
-        return render_template("boa-input-1.html", machines=machines, parts=parts)
-    return render_template("boa-input.html", machines=0, parts=0)
+    return render_template("boa-input.html", machines="0", parts="0")
 
 #INPUT PARTS PRODUCED BY EACH MACHINE
 @app.route("/boa/input2", methods=['GET', 'POST'])
 def boaInput2():
     if request.method == 'POST':
-        return render_template("boa-input-1.html")
+        machines_number = int(request.form['machines'])
+        parts_number = int(request.form['parts'])
+        return render_template("boa-input-1.html", machines=machines_number, parts=parts_number)
     return render_template("boa-input-1.html")
 
 #VIEW THE OUT CELLS FORMATION BY BOA  
 @app.route("/boa/input3", methods=['GET', 'POST'])
 def boaInput3():
     if request.method == 'POST':
-        return render_template("boa-output.html")
+        machines_number = int(request.form['machines'])
+        parts_number = int(request.form['parts'])
+        buffer_list = [[i for i in range(parts_number)] for j in range(machines_number)]
+        buffer_matrix = []
+        buffer_temp_list = []
+        temp_list = []
+        mchnes = range(machines_number)
+        prts = range(parts_number)
+        for i in mchnes:
+            for j in prts:
+                temp_list.append(str(i+1) + str(j+1))
+
+        temp_ans_list = []
+
+        for i in temp_list:
+            temp_ans_list.append(int(request.form[str(i)]))  
+
+        x=0
+        while x<len(temp_ans_list):
+            buffer_temp_list.append(temp_ans_list[x:x+parts_number])
+            x+=parts_number
+        
+        buffer_matrix = boa.convert_to_arry(buffer_list)
+
+        while True:
+            outputMatrix = boa.order(buffer_matrix)
+            if (outputMatrix==buffer_matrix).all()==True:
+                break
+            else:
+                buffer_matrix=outputMatrix
+
+        
+        print(outputMatrix)
+        return render_template("boa-output.html", machines=machines_number, parts=parts_number)
     return render_template("boa-output.html")
 

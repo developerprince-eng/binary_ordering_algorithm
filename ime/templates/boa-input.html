@@ -26,18 +26,18 @@
             </div>
         </div>
         <div class="container">
-            <form action="{{url_for('boaInput2')}}" method="POST">
+            <form action="/boa/input2" method="POST">
                 <div class="row setup-content" id="step-1">
                     <div class="col-xl-12">
                         <div class="col-md-12">
                             <h3> Prepare 1</h3>
                             <div class="form-group">
                                 <label class="control-label">Enter Number of Parts</label>
-                                <input type="number" min="1" max="12" required class="form-control" placeholder="Number of Parts" id="partsNumber" name="machines"/>
+                                <input type="number" min="1" max="10" required class="form-control" placeholder="Number of Parts" id="partsNumber" name="parts"/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Enter Number of Machines</label>
-                                <input type="number" min="1" max="999"required="required" class="form-control" placeholder="Number of Machines" id="machineNumber" name="parts"/>
+                                <input type="number" min="1" max="999"required="required" class="form-control" placeholder="Number of Machines" id="machineNumber" name="machines"/>
                             </div>
                             <input class="btn btn-primary nextBtn pull-right" type="submit" value="Next">
                         </div>
