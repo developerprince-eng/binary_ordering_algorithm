@@ -12,7 +12,7 @@ app.config.update(
     SECRETE_KEY = 'ime2019',
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 )
-app.config.from_pyfile('../config.py')
+# app.config.from_pyfile('../config.py')
 
 db = SQLAlchemy(app)
 
