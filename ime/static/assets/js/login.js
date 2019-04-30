@@ -4,8 +4,8 @@ $( document ).ready(function() {
       user = $('#name');
 
   userInput.keyup(function (event) {
-      if (event.which == 13) {
-        var name = $(this).val();
+      if (event.which == 27) {
+        var name = $(this).val  ();
         user.text(name);
         userInput.addClass('hidden');
          userWrap.addClass('hidden');

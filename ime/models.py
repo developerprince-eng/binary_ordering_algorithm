@@ -3,11 +3,13 @@ from datetime import datetime
 
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
+from sqlalchemy.dialects.postgresql import JSON
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from . import db, lm
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     """ User model defines the user tabel in the database """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
@@ -15,7 +17,6 @@ class User(db.Model, UserMixin):
     surname = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(200))
-
     dob = db.Column(db.Date)
 
     def save(self):
