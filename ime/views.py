@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from . import app, lm
 from .models import User
 import ime.helpers.boa as BOA
-from ime.blackbox.array2 import orderboa
+from ime.blackbox.boa import orderboa
 import numpy as np
 
 boa = BOA.BOA()
@@ -97,7 +97,7 @@ def boaInput3():
         buffer_matrix = boa.convert_to_arry(buffer_temp_list)
         print(buffer_matrix)
         print(type(buffer_matrix))
-        
+
         # while True:
         #     outputMatrix = boa.order(buffer_matrix)
         #     if (outputMatrix==buffer_matrix).all()==True:
