@@ -30,37 +30,53 @@
                 <div class="row setup-content" id="step-2">
                     <div class="col-xl-12">
                         <div class="col-md-12">
-                            <h3> Input and Compute 2</h3>
-                            <h4> Number of Parts <input required="required" type="number" min="0" max="999" id="" value="{{ parts }}" name="parts" style="border-radius: 25px; text-align:center;"></h4>
-                            <h4> Number of Machines<input required="required" type="number" min="0" max="999" id="" value="{{ machines }}" name="machines" style="border-radius: 25px; text-align:center;"></h4>
-                            <table class="table table-bordered">
+                            <div class="jumbotron jumbotron-fluid rounded">
+                                <div class="container">
+                                  <h3 class="display-4"> Input and Compute 2</h3>
+                                  <h4 class="lead"> Number of Parts <input required="required" type="number" min="0" max="999" id="" value="{{ parts }}" name="parts" style="border-radius: 25px; text-align:center;"></h4>
+                                  <h4 class="lead"> Number of Machines<input required="required" type="number" min="0" max="999" id="" value="{{ machines }}" name="machines" style="border-radius: 25px; text-align:center;"></h4>
+                                </div>
+                              </div>
+                            <table class="table table-bordered rounded">
                                 <thead class="thead-dark">
                                   <tr>
-                                    <th scope="col">Machine </th>
+                                    <th scope="col"><input name="00" maxlength="3" size="6" value="Machines" style="border-radius: 25px; text-align:center;"></th>
                                     {% set i = 0 %}
                                     {% set j = 0 %}
                                     {% set parts_int = (parts | int)%}
+                                    {% set mchne_int = (machines | int)%}
                                     {% set prts = range(parts_int)%}
                                     {% for i in prts %}
-                                      <th scope="col">Part {{ i + 1 }}</th>
+                                      <th scope="col"><input name="0{{ i + 1}}" maxlength="3" size="2" value="P{{ i + 1 }}" style="border-radius: 25px; text-align:center;"></th>
                                       {%set i = i + 1%}
                                     {% endfor %}
-                                    <th scope="col">Rank</th>
+                                    <th scope="col" style="text-align:center;"><input name="0{{ parts + 1}}" maxlength="3" size="3" value="100000" style="border-radius: 25px; text-align:center;"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {%set mchnes = range(machines)%}
                                   {% for j in mchnes %}
                                     <tr>
-                                    <th scope="row">Machine {{ j + 1}}</th>
+                                    <th scope="row"><input name="{{j+1}}0" maxlength="6" size="6" value="Machine{{j+1}}" style="border-radius: 25px; text-align:center;"></th>
                                     {% for i in prts %}
-                                      <td><input required="required" type="number" min="0" max="1" id="" value="0" name="{{j+1}}{{i+1}}"></td>
+                                      <td><input name="{{j+1}}{{i+1}}" required="required" type="number" min="0" max="1" id="" size="2" value="0" style="border-radius: 25px; text-align:center;"></td>
                                       {%set i = i + 1%}
                                     {% endfor %}
-                                    <td>0</td>
+                                    <td style="border-radius: 25px; text-align:center;"><input name="{{j+1}}{{parts+1}}" maxlength="2" size="2" value="0" style="border-radius: 25px; text-align:center;"></td>
                                     </tr>
                                     {%set j = j + 1 %}
                                   {% endfor %}
+                                  <!--Last Row-->
+    
+                                  <tr>
+                                    {% set prt = parts_int%}
+                                    <td><input name="{{prt-1}}0" maxlength="2" size="3" value="100000" style="border-radius: 25px; text-align:center;"></td>
+                                    {% set pts = range(prt)%}
+                                    {% for i in prts%}
+                                      <td><input name="{{prt-1}}{{i+1}}" maxlength="2" size="2" value="0" style="border-radius: 25px; text-align:center;"></td>
+                                    {% endfor %}
+                                    <td style="text-align:center;"><input name="{{prt-1}}{{prt+1}}" maxlength="2" size="3" value="100000" style="border-radius: 25px; text-align:center;"></td>
+                                  </tr>
                                 </tbody>
                               </table>
                             <input class="btn btn-primary nextBtn pull-right" type="submit" value="Compute">

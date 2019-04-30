@@ -5,7 +5,7 @@ class BOA:
         self.is_obj = True
     
     def convert_to_arry(self, listInput):
-        arrayOutput = np.asarray(listInput, dtype=np.int32)
+        arrayOutput = np.asarray(listInput, dtype=str)
         return arrayOutput
 
     def order(self, matrix):

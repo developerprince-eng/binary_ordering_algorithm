@@ -1,5 +1,4 @@
 import os
-import numpy as np
 from flask import flash, redirect, render_template, url_for, request
 from flask_login import current_user, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash
@@ -7,6 +6,8 @@ from werkzeug.utils import secure_filename
 from . import app, lm
 from .models import User
 import ime.helpers.boa as BOA
+from ime.blackbox.array2 import orderboa
+import numpy as np
 
 boa = BOA.BOA()
 
@@ -72,30 +73,41 @@ def boaInput3():
     if request.method == 'POST':
         machines_number = int(request.form['machines'])
         parts_number = int(request.form['parts'])
-        buffer_list = [[i for i in range(parts_number)] for j in range(machines_number)]
         buffer_matrix = []
         buffer_temp_list = []
         temp_list = []
-        mchnes = range(machines_number)
-        prts = range(parts_number)
+        temp_ans_list = []
+        mch_no = machines_number + 2
+        prt_no = parts_number + 2
+        mchnes = range(mch_no)
+        prts = range(prt_no)
+        # buffer_list = [[i for i in range(prt_no)] for j in range(mch_no)]
         for i in mchnes:
             for j in prts:
-                temp_list.append(str(i+1) + str(j+1))
-
-        temp_ans_list = []
+                temp_list.append(str(i) + str(j))
 
         for i in temp_list:
-            temp_ans_list.append(int(request.form[str(i)]))  
+            temp_ans_list.append(request.form[str(i)])  
 
         x=0
         while x<len(temp_ans_list):
-            buffer_temp_list.append(temp_ans_list[x:x+parts_number])
-            x+=parts_number
+            buffer_temp_list.append(temp_ans_list[x:x+prt_no])
+            x+=prt_no
+
+        buffer_matrix = boa.convert_to_arry(buffer_temp_list)
+        print(buffer_matrix)
+        print(type(buffer_matrix))
         
-        buffer_matrix = boa.convert_to_arry(buffer_list)
+        # while True:
+        #     outputMatrix = boa.order(buffer_matrix)
+        #     if (outputMatrix==buffer_matrix).all()==True:
+        #         break
+        #     else:
+        #         buffer_matrix=outputMatrix
+        # print(outputMatrix)
 
         while True:
-            outputMatrix = boa.order(buffer_matrix)
+            outputMatrix = orderboa(buffer_matrix)
             if (outputMatrix==buffer_matrix).all()==True:
                 break
             else:
