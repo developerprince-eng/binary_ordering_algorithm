@@ -1,1 +1,1 @@
-web: gunicorn ime:app
+web: gunicorn ime:app --preload
