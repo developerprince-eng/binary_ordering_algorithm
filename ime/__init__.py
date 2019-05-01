@@ -19,4 +19,5 @@ db = SQLAlchemy(app)
 lm.init_app(app)
 migrate = Migrate(app, db)
 
+from ime import models
 from .views import *
